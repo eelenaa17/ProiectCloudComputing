@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Adauga rezervare</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Adauga rezervare</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('rezervari') }}">Lista rezervari</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('sterge_rezervare') }}">Sterge rezervare</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost/">Home</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-5">
+    <h1>Adauga rezervare</h1>
+    <form action="{{ url_for('adauga_rezervare') }}" method="post">
+    <div class="form-group">
+            <label for="book">Carte:</label>
+            <select class="form-control" id="book" name="book_id" required>
+                <option value="">Selecteaza o carte:</option>
+                {% for book in books %}
+                <option value="{{ book.id }}">{{ book.book_name }} ({{ book.id }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="user">Utilizator:</label>
+            <select class="form-control" id="user" name="utilizator_id" required>
+                <option value="">Selecteaza un utilizator:</option>
+                {% for utilizator in utilizatori %}
+                <option value="{{ utilizator.id }}">{{ utilizator.first_name }} {{ utilizator.last_name }} CNP: {{ utilizator.cnp }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="start_date">Data inceput:</label>
+            <input type="date" class="form-control" id="start_date" name="dataStart" required/>
+        </div>
+        <div class="form-group">
+            <label for="end_date">Data sfarsit:</label>
+            <input type="date" class="form-control" id="end_date" name="dataStop" required/>
+        </div>
+        <button type="submit" class="btn btn-primary">Salveaza</button>
+    </form>
+</div>
+
+<script>
+    const startDate = document.getElementById("start_date");
+    const endDate = document.getElementById("end_date");
+
+    // set min date for start date to current date
+    startDate.min = new Date().toISOString().split("T")[0];
+    endDate.min = new Date().toISOString().split("T")[0];
+    function validateDates() {
+        const start = new Date(startDate.value);
+        const end = new Date(endDate.value);
+        const today = new Date();
+
+        if (end < today || end < start) {
+            alert("Invalid date range!");
+            return false;
+        }
+
+        return true;
+    }
+
+    startDate.addEventListener("change", validateDates);
+    endDate.addEventListener("change", validateDates);
+</script>
+</body>
+</html>

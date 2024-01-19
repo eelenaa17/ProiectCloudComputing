@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Books</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Lista carti</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('adauga_carte') }}">Adauga o carte noua</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('sterge_carte') }}">Sterge carte</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<table class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Titlu carte</th>
+    <th>Autor</th>
+    <th>An publicatie</th>
+    <th>Categorie</th>
+    <th>Actiuni</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for book in books %}
+  <tr>
+    <td>{{ book.id }}</td>
+    <td>{{ book.book_name }}</td>
+    <td>{{ book.autor.nume }} {{ book.autor.prenume }}</td>
+    <td>{{ book.year }}</td>
+    <td>{{ book.categorie.descriere }}</td>
+    <td>
+      <a href="{{ url_for('editare_carte', id=book.id) }}" class="btn btn-sm btn-primary">
+        <i class="fas fa-edit"></i>
+        Edit
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</body>
+</html>

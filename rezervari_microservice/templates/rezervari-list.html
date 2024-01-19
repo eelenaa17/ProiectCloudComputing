@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Rezervari</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css">
+</head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Lista rezervari</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('adauga_rezervare') }}">Adauga rezervare</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('sterge_rezervare') }}">Sterge rezervare</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost/">Home</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<table class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Denumire Carte</th>
+    <th>Nume Utilizator , CNP</th>
+    <th>Data Start</th>
+    <th>Data Stop</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for rezervare in rezervari %}
+  <tr>
+    <td>{{ rezervare.id }}</td>
+    <td>{{ rezervare.book.book_name }}</td>
+    <td>{{ rezervare.utilizator.first_name ~ ' ' ~ rezervare.utilizator.last_name ~ ' CNP: ' ~ rezervare.utilizator.cnp }}</td>
+    <td>{{ rezervare.datastart.strftime('%Y-%m-%d') }}</td>
+    <td>{{ rezervare.datastop.strftime('%Y-%m-%d') }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</body>
+</html>

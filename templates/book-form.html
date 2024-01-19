@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Adauga o carte noua</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Adauga o carte noua</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('lista_carti') }}">Lista carti</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('sterge_carte') }}">Sterge carte</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container mt-5">
+  <h1>Adauga o carte noua</h1>
+  <form action="{{ url_for('adauga_carte') }}" method="post">
+    <div class="form-group">
+      <label for="bookName">Titlu carte:</label>
+      <input type="text" class="form-control" id="bookName" name="bookName" required>
+    </div>
+    <div class="form-group">
+      <label for="autori">Autor:</label>
+      <select class="form-control" id="autori" name="autor_id" required>
+        <option value="">Selecteaza Autorul</option>
+        {% for autor in autori %}
+        <option value="{{ autor.id }}">{{ autor.nume }} {{ autor.prenume }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="year">An publicatie:</label>
+      <input type="number" class="form-control" id="year" name="year" required min="1">
+    </div>
+    <div class="form-group">
+      <label for="categories">Categorie:</label>
+      <select class="form-control" id="categories" name="categorie_id" required>
+        <option value="">Selecteaza categoria</option>
+        {% for categorie in categorii %}
+        <option value="{{ categorie.id }}">{{ categorie.descriere }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Salveaza</button>
+  </form>
+</div>
+</body>
+</html>

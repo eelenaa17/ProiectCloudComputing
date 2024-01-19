@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Adauga Utilizator Nou</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Adauga utilizator nou</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/utilizatori">Lista utilizatori</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/utilizatori_delete">Sterge utilizator</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container mt-5">
+  <h1>Adauga utilizator nou</h1>
+  <form action="{{ url_for('adauga_utilizator') }}" method="post">
+    <div class="form-group">
+      <label for="firstName">Nume:</label>
+      <input type="text" class="form-control" id="firstName" name="firstName" required>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Prenume:</label>
+      <input type="text" class="form-control" id="lastName" name="lastName" required>
+    </div>
+    <div class="form-group">
+      <label for="cnp">CNP:</label>
+      <input type="number" class="form-control" id="cnp" name="cnp" required min="1">
+    </div>
+    <div class="form-group">
+      <label for="phone">Telefon:</label>
+      <input type="number" class="form-control" id="phone" name="phone" required min="1">
+    </div>
+    <button type="submit" class="btn btn-primary">Salveaza</button>
+  </form>
+</div>
+</body>
+</html>

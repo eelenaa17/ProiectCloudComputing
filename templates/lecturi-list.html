@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lecturi</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Lista rezervari pentru lectura</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('adauga_lectura') }}">Adauga rezervare pentru lectura</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<table class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Sala</th>
+    <th>Denumire Carte</th>
+    <th>Nume Utilizator , CNP</th>
+    <th>Perioada (ore)</th>
+    <th>Data inceput</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for lectura in lecturi %}
+  <tr>
+    <td>{{ lectura.id }}</td>
+    <td>{{ lectura.denumire }}</td>
+    <td>{{ lectura.book.book_name }}</td>
+    <td>{{ lectura.utilizator.first_name ~ ' ' ~ lectura.utilizator.last_name ~ ' CNP: ' ~ lectura.utilizator.cnp }}</td>
+    <td>{{ lectura.perioada }}</td>
+    <td>{{ lectura.datasala }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</body>
+</html>

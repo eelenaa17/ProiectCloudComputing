@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lecturi</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Adauga o inregistrare noua</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('lecturi') }}">Lista lecturi</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container mt-5">
+  <h1>Adauga o inregistrare noua</h1>
+  <form method="post" action="{{ url_for('adauga_lectura') }}">
+    <div class="form-group">
+      <label for="sala">Sala:</label>
+      <input type="text" class="form-control" id="sala" name="denumire" required>
+    </div>
+    <div class="form-group">
+      <label for="book">Carte:</label>
+      <select class="form-control" id="book" name="book_id" required>
+      <option value="">Selecteaza o carte:</option>
+        {% for book in books %}
+        <option value="{{ book.id }}">{{ book.book_name }} - {{ book.autor.nume }} {{ book.autor.prenume }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="NumarOre">Ore:</label>
+      <input type="number" class="form-control" id="NumarOre" name="perioada" required min="1">
+    </div>
+    <select class="form-control" id="user" name="utilizator_id" required>
+      <option value="">Selecteaza un utilizator:</option>
+      {% for utilizator in utilizatori %}
+      <option value="{{ utilizator.id }}">{{ utilizator.first_name }} {{ utilizator.last_name }} CNP: {{ utilizator.cnp }}</option>
+      {% endfor %}
+    </select>
+    <div class="form-group">
+      <label for="data_sala">Data:</label>
+      <input type="date" class="form-control" id="data_sala" name="datasala" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Salveaza</button>
+  </form>
+</div>
+<script>
+  const dataSala = document.getElementById("data_sala");
+  dataSala.min = new Date().toISOString().split("T")[0];
+
+  dataSala.addEventListener("change", function () {
+    const selectedDate = new Date(dataSala.value);
+    const currentDate = new Date();
+
+    if (selectedDate < currentDate) {
+      dataSala.value = currentDate.toISOString().split("T")[0];
+    }
+  });
+</script>
+</body>
+</html>

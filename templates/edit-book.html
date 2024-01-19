@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Modifica carte</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"/>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Modifica carte</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('lista_carti') }}">Lista carti</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container mt-5">
+  <h1>Modifica Carte</h1>
+  <form action="{{ url_for('editare_carte', id=book.id) }}" method="post">
+    <input type="hidden" name="id" value="{{ book.id }}">
+    <div class="form-group">
+      <label for="bookName">Titlu carte:</label>
+      <input type="text" class="form-control" id="bookName" name="bookName" value="{{ book.book_name }}" required>
+    </div>
+    <div class="form-group">
+      <label for="autor_id">Autor:</label>
+      <select class="form-control" id="autor_id" name="autor_id" required>
+        <option value="">Selecteaza Autorul</option>
+        {% for autor in autori %}
+        <option value="{{ autor.id }}" {% if book.idau == autor.id %}selected{% endif %}>
+          {{ autor.nume }} {{ autor.prenume }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="year">An publicatie:</label>
+      <input type="number" class="form-control" id="year" name="year" value="{{ book.year }}" required min="1">
+    </div>
+    <div class="form-group">
+      <label for="categorie_id">Categorie:</label>
+      <select class="form-control" id="categorie_id" name="categorie_id" required>
+        <option value="">Selecteaza categoria</option>
+        {% for categorie in categorii %}
+        <option value="{{ categorie.id }}" {% if book.idca == categorie.id %}selected{% endif %}>
+          {{ categorie.descriere }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Modifica</button>
+  </form>
+</div>
+</body>
+</html>
